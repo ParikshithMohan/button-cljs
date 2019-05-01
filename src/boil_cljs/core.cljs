@@ -6,7 +6,6 @@
 (println "This text is printed from src/boil_cljs/core.cljs. Go ahead and edit it and see reloading in action.")
 
 (defonce app-state (atom {:text "Hello world!"}))
-(def click-count (reagent/atom 0))
 (def ene-health (reagent/atom 25))
 (def pla-health (reagent/atom 50))
 (def random-val (reagent/atom 0))
@@ -18,7 +17,8 @@
 (defn inc-atom [at num] (swap! at + num))
 (defn dec-atom [at num] (swap! at - num))
 (defn randgen[] (rand-int 100))
-
+(defn randcheck? [number]
+  (if (< number 2) (dec-atom ene-health 5)))
 (defn hello-world []
   [:div
    "The atom random-val has value: " @random-val
@@ -27,7 +27,7 @@
    [:input {:type "button" :value "Keep Going"
              :on-click #(swap! random-val randgen[])}]
    [:input {:type "button" :value "Shoot"
-            :on-click #(dec-atom ene-health 5)}]
+            :on-click #(randcheck? @random-val)}]
    [:input {:type "button" :value "Bomb"
             :on-click #(dec-atom ene-health 10)}]
   ;; [:input {:type "button" :value "Retreat"
