@@ -8,28 +8,30 @@
 (defonce app-state (atom {:text "Hello world!"}))
 (def click-count (reagent/atom 0))
 (def ene-health (reagent/atom 25))
-
+(def pla-health (reagent/atom 50))
+(def random-val (reagent/atom 0))
 (defn multiply [x y] (* x y))
 (defn get-app-element []
   (gdom/getElement "app"))
-
+(if (< (rand-int 100) 80 ) "yes" "no")
 (defn inc-atom [at num] (swap! at + num))
 (defn dec-atom [at num] (swap! at - num))
+;;(defn rand-atom [num](swap! num))
 (defn hello-world []
   [:div
-  ;; "The atom " [:code "click-count"] " has value: "
-  ;; @click-count ". "
-  ;; [:input {:type "button" :value "Click me!"
-  ;;          :on-click #(inc-atom click-count 3)}]
+   "The atom random-val has value: " @random-val
+   [:input {:type "button" :value "Click me!"
+            :on-click #(swap! random-val (rand-int 100))}]
    [:input {:type "button" :value "Keep Going"
-            :on-click #(js/alert "Keep Going")}]
+             :on-click #()}]
    [:input {:type "button" :value "Shoot"
             :on-click #(dec-atom ene-health 5)}]
    [:input {:type "button" :value "Bomb"
-            :on-click #(js/alert "Bomb")}]
-   [:input {:type "button" :value "Retreat"
-            :on-click #(js/alert "Retreat")}]
-   [:p "ENEMY HEALTH : " @ene-health]]
+            :on-click #(dec-atom ene-health 10)}]
+  ;; [:input {:type "button" :value "Retreat"
+  ;;          :on-click #(js/alert "Retreat")}]
+   [:p "ENEMY HEALTH : " @ene-health]
+   [:p "PLAYER HEALTH : " @pla-health]]
   )
 (defn mount [el]
   (reagent/render-component [hello-world] el))
