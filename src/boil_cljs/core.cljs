@@ -10,20 +10,22 @@
 (def ene-health (reagent/atom 25))
 (def pla-health (reagent/atom 50))
 (def random-val (reagent/atom 0))
+
 (defn multiply [x y] (* x y))
 (defn get-app-element []
   (gdom/getElement "app"))
 (if (< (rand-int 100) 80 ) "yes" "no")
 (defn inc-atom [at num] (swap! at + num))
 (defn dec-atom [at num] (swap! at - num))
-;;(defn rand-atom [num](swap! num))
+(defn randgen[] (rand-int 100))
+
 (defn hello-world []
   [:div
    "The atom random-val has value: " @random-val
-   [:input {:type "button" :value "Click me!"
-            :on-click #(swap! random-val (rand-int 100))}]
+  ;; [:input {:type "button" :value "Click me!"
+    ;;        :on-click #(swap! random-val (rand-int 100))}]
    [:input {:type "button" :value "Keep Going"
-             :on-click #()}]
+             :on-click #(swap! random-val randgen[])}]
    [:input {:type "button" :value "Shoot"
             :on-click #(dec-atom ene-health 5)}]
    [:input {:type "button" :value "Bomb"
