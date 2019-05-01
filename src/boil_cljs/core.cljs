@@ -26,7 +26,8 @@
    [:input {:type "button" :value "Bomb"
             :on-click #(js/alert "Bomb")}]
    [:input {:type "button" :value "Retreat"
-            :on-click #(js/alert "Retreat")}]])
+            :on-click #(js/alert "Retreat")}]]
+  )
 
 (defn mount [el]
   (reagent/render-component [hello-world] el))
