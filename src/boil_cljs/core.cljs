@@ -18,7 +18,7 @@
 (defn dec-atom [at num] (swap! at - num))
 (defn randgen[] (rand-int 100))
 (defn randcheck? [number]
-  (if (< number 2) (dec-atom ene-health 5)))
+  (if (< number 80) (dec-atom ene-health 5)))
 (defn hello-world []
   [:div
    "The atom random-val has value: " @random-val
@@ -27,7 +27,7 @@
    [:input {:type "button" :value "Keep Going"
              :on-click #(swap! random-val randgen[])}]
    [:input {:type "button" :value "Shoot"
-            :on-click #(randcheck? @random-val)}]
+            :on-click #(randcheck? (rand-int 100) )}]
    [:input {:type "button" :value "Bomb"
             :on-click #(dec-atom ene-health 10)}]
   ;; [:input {:type "button" :value "Retreat"
