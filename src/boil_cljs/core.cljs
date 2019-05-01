@@ -7,28 +7,30 @@
 
 (defonce app-state (atom {:text "Hello world!"}))
 (def click-count (reagent/atom 0))
+(def ene-health (reagent/atom 25))
 
 (defn multiply [x y] (* x y))
 (defn get-app-element []
   (gdom/getElement "app"))
 
 (defn inc-atom [at num] (swap! at + num))
+(defn dec-atom [at num] (swap! at - num))
 (defn hello-world []
   [:div
-   "The atom " [:code "click-count"] " has value: "
-   @click-count ". "
-   [:input {:type "button" :value "Click me!"
-            :on-click #(inc-atom click-count 3)}]
+  ;; "The atom " [:code "click-count"] " has value: "
+  ;; @click-count ". "
+  ;; [:input {:type "button" :value "Click me!"
+  ;;          :on-click #(inc-atom click-count 3)}]
    [:input {:type "button" :value "Keep Going"
             :on-click #(js/alert "Keep Going")}]
    [:input {:type "button" :value "Shoot"
-            :on-click #(js/alert "Shoot")}]
+            :on-click #(dec-atom ene-health 5)}]
    [:input {:type "button" :value "Bomb"
             :on-click #(js/alert "Bomb")}]
    [:input {:type "button" :value "Retreat"
-            :on-click #(js/alert "Retreat")}]]
+            :on-click #(js/alert "Retreat")}]
+   [:p "ENEMY HEALTH : " @ene-health]]
   )
-
 (defn mount [el]
   (reagent/render-component [hello-world] el))
 
