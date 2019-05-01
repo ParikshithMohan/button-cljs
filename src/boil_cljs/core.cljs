@@ -13,28 +13,34 @@
 (defn multiply [x y] (* x y))
 (defn get-app-element []
   (gdom/getElement "app"))
-(if (< (rand-int 100) 80 ) "yes" "no")
+
 (defn inc-atom [at num] (swap! at + num))
 (defn dec-atom [at num] (swap! at - num))
 (defn randgen[] (rand-int 100))
-(defn randcheck? [number]
+
+(defn shotcheck? [number]    ;;checking for 80% probability of shot
   (if (< number 80) (dec-atom ene-health 5)))
+
+(defn bombcheck? [number]    ;;checking for 40% probability of bomb
+  (if (< number 40) (dec-atom ene-health 12)))
+
 (defn hello-world []
   [:div
-   "The atom random-val has value: " @random-val
-  ;; [:input {:type "button" :value "Click me!"
-    ;;        :on-click #(swap! random-val (rand-int 100))}]
-   [:input {:type "button" :value "Keep Going"
-             :on-click #(swap! random-val randgen[])}]
-   [:input {:type "button" :value "Shoot"
-            :on-click #(randcheck? (rand-int 100) )}]
-   [:input {:type "button" :value "Bomb"
-            :on-click #(dec-atom ene-health 10)}]
-  ;; [:input {:type "button" :value "Retreat"
+  ;; "The atom random-val has value: " @random-val
+  ;;[:input {:type "button" :value "Click me!"
+  ;;        :on-click #(swap! random-val (rand-int 100))}]
+  ;;[:input {:type "button" :value "Keep Going"
+  ;;        :on-click #(swap! random-val randgen[])}]
+    [:input {:type "button" :value "Shoot"
+            :on-click #(shotcheck? (rand-int 100))}]
+    [:input {:type "button" :value "Bomb"
+            :on-click #(bombcheck? (rand-int 100))}]
+  ;;[:input {:type "button" :value "Retreat"
   ;;          :on-click #(js/alert "Retreat")}]
-   [:p "ENEMY HEALTH : " @ene-health]
-   [:p "PLAYER HEALTH : " @pla-health]]
+    [:p "ENEMY HEALTH : " @ene-health]
+    [:p "PLAYER HEALTH : " @pla-health]]
   )
+
 (defn mount [el]
   (reagent/render-component [hello-world] el))
 
