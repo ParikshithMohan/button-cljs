@@ -9,6 +9,7 @@
 (def ene-health (reagent/atom 25))
 (def pla-health (reagent/atom 50))
 (def random-val (reagent/atom 0))
+(def status-atom (reagent/atom ""))
 
 (defn multiply [x y] (* x y))
 (defn get-app-element []
@@ -29,16 +30,17 @@
   ;; "The atom random-val has value: " @random-val
   ;;[:input {:type "button" :value "Click me!"
   ;;        :on-click #(swap! random-val (rand-int 100))}]
-  ;;[:input {:type "button" :value "Keep Going"
-  ;;        :on-click #(swap! random-val randgen[])}]
+    [:input {:type "button" :value "Keep Going"
+          :on-click #(swap! status-atom ["Advancing..."])}]
     [:input {:type "button" :value "Shoot"
             :on-click #(shotcheck? (rand-int 100))}]
     [:input {:type "button" :value "Bomb"
             :on-click #(bombcheck? (rand-int 100))}]
-  ;;[:input {:type "button" :value "Retreat"
-  ;;          :on-click #(js/alert "Retreat")}]
-    [:p "ENEMY HEALTH : " @ene-health]
-    [:p "PLAYER HEALTH : " @pla-health]]
+    [:input {:type "button" :value "Retreat"
+            :on-click #(swap! status-atom ["Retreating"])}]
+    [:p.ehclass "ENEMY HEALTH : " @ene-health]
+   [:p "PLAYER HEALTH : " @pla-health]
+   [:p "Player Status : " @status-atom]]
   )
 
 (defn mount [el]
