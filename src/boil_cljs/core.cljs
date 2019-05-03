@@ -25,20 +25,22 @@
 (defn bombcheck? [number]    ;;checking for 40% probability of bomb
   (if (< number 40) (dec-atom ene-health 12)))
 
+;;(defn eleminate [gone]
+  ;;(if (< = @ene-health 0)) {:style{:display "hidden"}})
 (defn hello-world []
   [:div
-  ;; "The atom random-val has value: " @random-val
+  ;;"The atom random-val has value: " @random-val
   ;;[:input {:type "button" :value "Click me!"
   ;;        :on-click #(swap! random-val (rand-int 100))}]
     [:input {:type "button" :value "Keep Going"
-          :on-click #(swap! status-atom ["Advancing..."])}]
+          :on-click #(reset! status-atom "Advancing...")}]
     [:input {:type "button" :value "Shoot"
             :on-click #(shotcheck? (rand-int 100))}]
     [:input {:type "button" :value "Bomb"
             :on-click #(bombcheck? (rand-int 100))}]
     [:input {:type "button" :value "Retreat"
-            :on-click #(swap! status-atom ["Retreating"])}]
-    [:p.ehclass "ENEMY HEALTH : " @ene-health]
+            :on-click #(reset! status-atom "Retreating")}]
+   [:p "ENEMY HEALTH : " @ene-health {:style{:display "hidden"}}]
    [:p "PLAYER HEALTH : " @pla-health]
    [:p "Player Status : " @status-atom]]
   )
